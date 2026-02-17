@@ -1,4 +1,5 @@
 import React from 'react';
+import { MdUndo, MdRedo, MdContentCut, MdContentCopy, MdContentPaste, MdSelectAll, MdSearch, MdDelete } from 'react-icons/md';
 
 const Toolbar = ({
   theme,
@@ -143,75 +144,74 @@ const Toolbar = ({
       {/* Edit Actions */}
       <div className="toolbar-section divider-right">
         <button
-          className="toolbar-button"
+          className="toolbar-icon-button"
           onClick={onUndo}
           disabled={!canUndo}
           title="Undo (Ctrl+Z)"
         >
-          Undo
+          <MdUndo />
         </button>
         <button
-          className="toolbar-button"
+          className="toolbar-icon-button"
           onClick={onRedo}
           disabled={!canRedo}
           title="Redo (Ctrl+Y)"
         >
-          Redo
+          <MdRedo />
         </button>
       </div>
 
       {/* Clipboard Actions */}
       <div className="toolbar-section divider-right">
         <button
-          className="toolbar-button"
+          className="toolbar-icon-button"
           onClick={onCut}
           title="Cut (Ctrl+X)"
         >
-          Cut
+          <MdContentCut />
         </button>
         <button
-          className="toolbar-button"
+          className="toolbar-icon-button"
           onClick={onCopyAll}
           title="Copy All (Ctrl+C)"
         >
-          Copy All
+          <MdContentCopy />
         </button>
         <button
-          className="toolbar-button"
+          className="toolbar-icon-button"
           onClick={onPaste}
           title="Paste (Ctrl+V)"
         >
-          Paste
+          <MdContentPaste />
         </button>
       </div>
 
       {/* Selection Actions */}
       <div className="toolbar-section divider-right">
         <button
-          className="toolbar-button"
+          className="toolbar-icon-button"
           onClick={onSelectAll}
           title="Select All (Ctrl+A)"
         >
-          Select All
+          <MdSelectAll />
         </button>
         <button
-          className="toolbar-button"
+          className="toolbar-icon-button"
           onClick={onFind}
           title="Find (Ctrl+F)"
         >
-          Find
+          <MdSearch />
         </button>
       </div>
 
       {/* Delete Action */}
       <div className="toolbar-section">
         <button
-          className="toolbar-button"
+          className="toolbar-icon-button delete-btn"
           onClick={onDeleteAll}
           title="Delete All"
-          style={{ color: '#f44336' }}
         >
-          Delete All
+          <MdDelete />
         </button>
       </div>
     </div>

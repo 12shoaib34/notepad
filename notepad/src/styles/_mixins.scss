@@ -8,6 +8,26 @@
     background-color: map-get($theme, 'background');
     color: map-get($theme, 'text');
 
+    // Tabs styling
+    .tabs-container {
+      background-color: map-get($theme, 'toolbar-bg');
+      border-bottom: 1px solid map-get($theme, 'border');
+    }
+
+    .tab {
+      border-color: map-get($theme, 'border');
+      color: map-get($theme, 'text');
+
+      &.active {
+        border-color: map-get($theme, 'accent');
+      }
+    }
+
+    .tab-add {
+      border-color: map-get($theme, 'border');
+      color: map-get($theme, 'text');
+    }
+
     // Toolbar styling
     .toolbar {
       background-color: map-get($theme, 'toolbar-bg');

@@ -1,88 +1,187 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-import Toolbar from './components/Toolbar';
-import SearchModal from './components/SearchModal';
-import { useLocalStorage } from './hooks/useLocalStorage';
-import { useUndoRedo } from './hooks/useUndoRedo';
-import './styles/App.scss';
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import Tabs from "./components/Tabs";
+import Toolbar from "./components/Toolbar";
+import SearchModal from "./components/SearchModal";
+import { useLocalStorage } from "./hooks/useLocalStorage";
+import "./styles/App.scss";
 
 const fontSizeMap = {
-  xs: '12px',
-  sm: '14px',
-  md: '16px',
-  lg: '18px',
-  xl: '20px',
-  xxl: '24px',
+  xs: "12px",
+  sm: "14px",
+  md: "16px",
+  lg: "18px",
+  xl: "20px",
+  xxl: "24px",
 };
 
 const fontFamilyMap = {
   system: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif',
   monospace: '"Courier New", Courier, monospace',
-  georgia: 'Georgia, serif',
-  arial: 'Arial, Helvetica, sans-serif',
-  verdana: 'Verdana, Geneva, sans-serif',
+  georgia: "Georgia, serif",
+  arial: "Arial, Helvetica, sans-serif",
+  verdana: "Verdana, Geneva, sans-serif",
   comic: '"Comic Sans MS", cursive',
   times: '"Times New Roman", Times, serif',
 };
 
 const fontWeightMap = {
-  light: '300',
-  normal: '400',
-  medium: '500',
-  semibold: '600',
-  bold: '700',
+  light: "300",
+  normal: "400",
+  medium: "500",
+  semibold: "600",
+  bold: "700",
 };
 
 const lineHeightMap = {
-  compact: '1.2',
-  normal: '1.5',
-  relaxed: '1.8',
-  loose: '2.0',
+  compact: "1.2",
+  normal: "1.5",
+  relaxed: "1.8",
+  loose: "2.0",
 };
 
 function App() {
   const textareaRef = useRef(null);
 
-  // State management with localStorage
-  const [theme, setTheme] = useLocalStorage('notepad-theme', 'dark');
-  const [fontSize, setFontSize] = useLocalStorage('notepad-fontSize', 'md');
-  const [fontFamily, setFontFamily] = useLocalStorage('notepad-fontFamily', 'system');
-  const [fontWeight, setFontWeight] = useLocalStorage('notepad-fontWeight', 'normal');
-  const [lineHeight, setLineHeight] = useLocalStorage('notepad-lineHeight', 'normal');
-  const [savedText, setSavedText] = useLocalStorage('notepad-text', '');
+  // Settings with localStorage
+  const [theme, setTheme] = useLocalStorage("notepad-theme", "dark");
+  const [fontSize, setFontSize] = useLocalStorage("notepad-fontSize", "md");
+  const [fontFamily, setFontFamily] = useLocalStorage("notepad-fontFamily", "system");
+  const [fontWeight, setFontWeight] = useLocalStorage("notepad-fontWeight", "normal");
+  const [lineHeight, setLineHeight] = useLocalStorage("notepad-lineHeight", "normal");
 
-  // Undo/Redo functionality
-  const { value: text, setValue, setValueImmediate, undo, redo, canUndo, canRedo } = useUndoRedo(savedText);
+  // Tabs management with localStorage
+  const [tabs, setTabs] = useLocalStorage("notepad-tabs", [{ id: Date.now(), content: "", history: [], historyIndex: -1 }]);
+  const [activeTabId, setActiveTabId] = useLocalStorage("notepad-activeTab", tabs[0].id);
+
+  // Current tab text state
+  const [text, setText] = useState("");
 
   // Search modal state
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
-  // Auto-save to localStorage on text change
+  // Load text when tab changes
   useEffect(() => {
-    setSavedText(text);
-  }, [text, setSavedText]);
+    const currentTab = tabs.find((tab) => tab.id === activeTabId);
+    if (currentTab) {
+      setText(currentTab.content || "");
+    }
+  }, [activeTabId, tabs]);
+
+  // Save text to current tab
+  const saveCurrentTab = useCallback(
+    (newText) => {
+      setTabs((prevTabs) => prevTabs.map((tab) => (tab.id === activeTabId ? { ...tab, content: newText } : tab)));
+    },
+    [activeTabId, setTabs],
+  );
 
   // Handle text change
   const handleTextChange = (e) => {
     const newText = e.target.value;
-    setValue(newText);
+    setText(newText);
+    saveCurrentTab(newText);
   };
+
+  // Tab operations
+  const handleTabChange = (tabId) => {
+    setActiveTabId(tabId);
+  };
+
+  const handleTabClose = (tabId) => {
+    if (tabs.length === 1) return;
+
+    const newTabs = tabs.filter((tab) => tab.id !== tabId);
+    setTabs(newTabs);
+
+    if (activeTabId === tabId) {
+      setActiveTabId(newTabs[0].id);
+    }
+  };
+
+  const handleTabAdd = () => {
+    const newTab = {
+      id: Date.now(),
+      content: "",
+      history: [],
+      historyIndex: -1,
+    };
+    setTabs([...tabs, newTab]);
+    setActiveTabId(newTab.id);
+  };
+
+  // Undo/Redo functionality
+  const undo = () => {
+    const currentTab = tabs.find((tab) => tab.id === activeTabId);
+    if (!currentTab || !currentTab.history || currentTab.historyIndex <= 0) return;
+
+    const newIndex = currentTab.historyIndex - 1;
+    const previousText = currentTab.history[newIndex];
+
+    setText(previousText);
+
+    setTabs((prevTabs) => prevTabs.map((tab) => (tab.id === activeTabId ? { ...tab, content: previousText, historyIndex: newIndex } : tab)));
+  };
+
+  const redo = () => {
+    const currentTab = tabs.find((tab) => tab.id === activeTabId);
+    if (!currentTab || !currentTab.history || currentTab.historyIndex >= currentTab.history.length - 1) return;
+
+    const newIndex = currentTab.historyIndex + 1;
+    const nextText = currentTab.history[newIndex];
+
+    setText(nextText);
+
+    setTabs((prevTabs) => prevTabs.map((tab) => (tab.id === activeTabId ? { ...tab, content: nextText, historyIndex: newIndex } : tab)));
+  };
+
+  const canUndo = () => {
+    const currentTab = tabs.find((tab) => tab.id === activeTabId);
+    return currentTab?.historyIndex > 0;
+  };
+
+  const canRedo = () => {
+    const currentTab = tabs.find((tab) => tab.id === activeTabId);
+    return currentTab?.history && currentTab.historyIndex < currentTab.history.length - 1;
+  };
+
+  // Add to history (with debouncing)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTabs((prevTabs) =>
+        prevTabs.map((tab) => {
+          if (tab.id === activeTabId) {
+            const history = [...(tab.history || []).slice(0, tab.historyIndex + 1), text];
+            return {
+              ...tab,
+              history: history.slice(-50), // Keep last 50 entries
+              historyIndex: Math.min(history.length - 1, 49),
+            };
+          }
+          return tab;
+        }),
+      );
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [text, activeTabId, setTabs]);
 
   // Toolbar actions
   const handleCopyAll = async () => {
     try {
       await navigator.clipboard.writeText(text);
-      alert('Text copied to clipboard!');
+      alert("Text copied to clipboard!");
     } catch (err) {
-      console.error('Failed to copy text:', err);
+      console.error("Failed to copy text:", err);
       textareaRef.current?.select();
-      document.execCommand('copy');
+      document.execCommand("copy");
     }
   };
 
   const handleDeleteAll = () => {
-    if (text && window.confirm('Are you sure you want to delete all text?')) {
-      setValueImmediate('');
+    if (text && window.confirm("Are you sure you want to delete all text?")) {
+      setText("");
+      saveCurrentTab("");
     }
   };
 
@@ -94,7 +193,8 @@ function App() {
         const start = textarea.selectionStart;
         const end = textarea.selectionEnd;
         const newText = text.substring(0, start) + clipboardText + text.substring(end);
-        setValueImmediate(newText);
+        setText(newText);
+        saveCurrentTab(newText);
 
         setTimeout(() => {
           textarea.selectionStart = textarea.selectionEnd = start + clipboardText.length;
@@ -102,7 +202,7 @@ function App() {
         }, 0);
       }
     } catch (err) {
-      console.error('Failed to paste text:', err);
+      console.error("Failed to paste text:", err);
     }
   };
 
@@ -117,14 +217,15 @@ function App() {
         try {
           await navigator.clipboard.writeText(selectedText);
           const newText = text.substring(0, start) + text.substring(end);
-          setValueImmediate(newText);
+          setText(newText);
+          saveCurrentTab(newText);
 
           setTimeout(() => {
             textarea.selectionStart = textarea.selectionEnd = start;
             textarea.focus();
           }, 0);
         } catch (err) {
-          console.error('Failed to cut text:', err);
+          console.error("Failed to cut text:", err);
         }
       }
     }
@@ -145,29 +246,36 @@ function App() {
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) {
+      if ((e.ctrlKey || e.metaKey) && e.key === "z" && !e.shiftKey) {
         e.preventDefault();
         undo();
-      }
-      else if ((e.ctrlKey || e.metaKey) && (e.key === 'y' || (e.key === 'z' && e.shiftKey))) {
+      } else if ((e.ctrlKey || e.metaKey) && (e.key === "y" || (e.key === "z" && e.shiftKey))) {
         e.preventDefault();
         redo();
-      }
-      else if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+      } else if ((e.ctrlKey || e.metaKey) && e.key === "f") {
         e.preventDefault();
         handleFind();
-      }
-      else if (e.key === 'Escape' && isSearchOpen) {
+      } else if ((e.ctrlKey || e.metaKey) && e.key === "t") {
+        e.preventDefault();
+        handleTabAdd();
+      } else if ((e.ctrlKey || e.metaKey) && e.key === "w") {
+        e.preventDefault();
+        if (tabs.length > 1) {
+          handleTabClose(activeTabId);
+        }
+      } else if (e.key === "Escape" && isSearchOpen) {
         setIsSearchOpen(false);
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [undo, redo, isSearchOpen]);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isSearchOpen, tabs.length, activeTabId]);
 
   return (
     <div className={`app theme-${theme}`}>
+      <Tabs tabs={tabs} activeTabId={activeTabId} onTabChange={handleTabChange} onTabClose={handleTabClose} onTabAdd={handleTabAdd} />
+
       <Toolbar
         theme={theme}
         setTheme={setTheme}
@@ -187,8 +295,8 @@ function App() {
         onCut={handleCut}
         onSelectAll={handleSelectAll}
         onFind={handleFind}
-        canUndo={canUndo}
-        canRedo={canRedo}
+        canUndo={canUndo()}
+        canRedo={canRedo()}
       />
 
       <div className="notepad-container">
@@ -212,7 +320,7 @@ function App() {
         isOpen={isSearchOpen}
         onClose={() => {
           setIsSearchOpen(false);
-          setSearchTerm('');
+          setSearchTerm("");
         }}
         text={text}
         onHighlight={handleHighlight}

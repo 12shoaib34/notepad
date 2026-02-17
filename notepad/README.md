@@ -4,18 +4,25 @@ A modern, feature-rich notepad application built with React, featuring Material 
 
 ## Features
 
-### Themes
-The application includes 8 beautiful color themes:
-- **Light** - Clean, bright default theme
-- **Dark** - Easy on the eyes dark theme
-- **Ocean Blue** - Refreshing blue ocean vibes
-- **Forest Green** - Natural green tones
-- **Sunset Orange** - Warm sunset colors
-- **Purple Haze** - Elegant purple theme
-- **Midnight Black** - Deep dark theme with blue accents
-- **Rose Gold** - Beautiful pink and rose tones
+### Multiple Tabs
+- **Create unlimited tabs** - Work on multiple documents simultaneously
+- **Tab titles** - First line of text automatically becomes the tab title
+- **Persistent tabs** - All tabs are saved in localStorage
+- **Easy management** - Close tabs with ×, add with +
+- **Keyboard shortcuts** - Ctrl+T for new tab, Ctrl+W to close
 
-All themes are carefully designed for readability and accessibility.
+### Dark Themes
+The application includes 8 professional dark themes:
+- **Dark** - Default dark theme
+- **GitHub Dark** - GitHub's official dark theme
+- **VS Code Dark** - Visual Studio Code dark theme
+- **Chrome Dark** - Google Chrome dark theme
+- **Dracula** - Popular Dracula dark theme
+- **Nord** - Nordic minimalist dark theme
+- **Monokai** - Classic code editor dark theme
+- **One Dark** - Atom editor's popular dark theme
+
+All themes are carefully designed for eye comfort and long coding sessions.
 
 ### Text Customization
 - **Font Size**: 6 options from Extra Small to XXL
@@ -38,6 +45,8 @@ All themes are carefully designed for readability and accessibility.
 - All settings (theme, font preferences) are also saved
 
 ### Keyboard Shortcuts
+- `Ctrl+T` - New tab
+- `Ctrl+W` - Close current tab
 - `Ctrl+Z` - Undo
 - `Ctrl+Y` or `Ctrl+Shift+Z` - Redo
 - `Ctrl+F` - Open Find dialog
