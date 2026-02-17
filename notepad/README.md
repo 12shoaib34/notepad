@@ -12,17 +12,20 @@ A modern, feature-rich notepad application built with React, featuring Material 
 - **Keyboard shortcuts** - Ctrl+T for new tab, Ctrl+W to close
 
 ### Dark Themes
-The application includes 8 professional dark themes:
-- **Dark** - Default dark theme
+The application includes 11 professional dark themes optimized for eye comfort:
+- **Dark** - Classic VS Code dark theme
 - **GitHub Dark** - GitHub's official dark theme
-- **VS Code Dark** - Visual Studio Code dark theme
-- **Chrome Dark** - Google Chrome dark theme
-- **Dracula** - Popular Dracula dark theme
-- **Nord** - Nordic minimalist dark theme
-- **Monokai** - Classic code editor dark theme
-- **One Dark** - Atom editor's popular dark theme
+- **Monokai** - Classic retro code editor theme
+- **Catppuccin Mocha** - Soothing pastel theme with warm tones
+- **Tokyo Night** - Japanese-inspired neon theme
+- **Solarized Dark** - Low contrast theme ideal for eye comfort
+- **Night Owl** - Blue light reduction theme for late-night coding
+- **Gruvbox Dark** - Retro theme with warm earthy colors
+- **Ayu Dark** - Minimalist Japanese-inspired theme
+- **Material Ocean** - Deep blue material design theme
+- **✨ Eye Comfort** - SPECIAL theme designed with optimal colors for maximum eye comfort
 
-All themes are carefully designed for eye comfort and long coding sessions.
+All themes are carefully designed for extended use and reduce eye strain during long coding sessions.
 
 ### Text Customization
 - **Font Size**: 6 options from Extra Small to XXL

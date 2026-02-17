@@ -1,6 +1,6 @@
 @use './variables' as *;
 
-// Mixin to apply theme colors
+// Mixin to apply theme colors - Modern & Enhanced
 @mixin themed($theme-name) {
   $theme: map-get($themes, $theme-name);
 
@@ -8,52 +8,111 @@
     background-color: map-get($theme, 'background');
     color: map-get($theme, 'text');
 
-    // Tabs styling
+    // Tabs styling - Modern
     .tabs-container {
-      background-color: map-get($theme, 'toolbar-bg');
-      border-bottom: 1px solid map-get($theme, 'border');
+      background-color: rgba(0, 0, 0, 0.15);
+      border-bottom-color: rgba(map-get($theme, 'text'), 0.08);
     }
 
     .tab {
-      border-color: map-get($theme, 'border');
       color: map-get($theme, 'text');
 
+      &::before {
+        background: map-get($theme, 'accent');
+      }
+
       &.active {
-        border-color: map-get($theme, 'accent');
+        background-color: rgba(map-get($theme, 'text'), 0.08);
+      }
+
+      &:hover:not(.active) {
+        background-color: rgba(map-get($theme, 'text'), 0.05);
+      }
+
+      .tab-close {
+        background-color: rgba(map-get($theme, 'text'), 0.1);
+
+        &:hover {
+          background-color: rgba(255, 67, 54, 0.3);
+        }
       }
     }
 
     .tab-add {
-      border-color: map-get($theme, 'border');
+      background-color: rgba(map-get($theme, 'text'), 0.08);
       color: map-get($theme, 'text');
+
+      &:hover {
+        background-color: rgba(map-get($theme, 'text'), 0.12);
+      }
     }
 
-    // Toolbar styling
+    // Toolbar styling - Modern
     .toolbar {
-      background-color: map-get($theme, 'toolbar-bg');
-      border-bottom: 1px solid map-get($theme, 'border');
+      background-color: rgba(0, 0, 0, 0.1);
+      border-bottom-color: rgba(map-get($theme, 'text'), 0.06);
     }
 
     .toolbar-button {
       color: map-get($theme, 'text');
-      border-color: map-get($theme, 'border');
+      border-color: rgba(map-get($theme, 'text'), 0.1);
+      background-color: rgba(map-get($theme, 'text'), 0.06);
+
+      &:hover:not(:disabled) {
+        background-color: rgba(map-get($theme, 'text'), 0.1);
+        border-color: rgba(map-get($theme, 'text'), 0.15);
+      }
+    }
+
+    .toolbar-icon-button {
+      color: map-get($theme, 'text');
+      background-color: rgba(map-get($theme, 'text'), 0.06);
+
+      &:hover:not(:disabled) {
+        background-color: rgba(map-get($theme, 'text'), 0.12);
+      }
+
+      &.delete-btn svg {
+        color: #ff6b6b;
+      }
     }
 
     .dropdown {
-      background-color: map-get($theme, 'toolbar-bg');
-      border-color: map-get($theme, 'border');
+      background-color: rgba(map-get($theme, 'text'), 0.06);
+      border-color: rgba(map-get($theme, 'text'), 0.1);
       color: map-get($theme, 'text');
+
+      &:hover {
+        background-color: rgba(map-get($theme, 'text'), 0.1);
+        border-color: rgba(map-get($theme, 'text'), 0.15);
+      }
+
+      &:focus {
+        border-color: rgba(map-get($theme, 'text'), 0.2);
+        box-shadow: 0 0 0 3px rgba(map-get($theme, 'accent'), 0.1);
+      }
+
+      option {
+        background-color: map-get($theme, 'toolbar-bg');
+        color: map-get($theme, 'text');
+      }
     }
 
-    // Search modal styling
+    // Search modal styling - Modern
     .search-modal {
       background-color: map-get($theme, 'toolbar-bg');
-      border: 1px solid map-get($theme, 'border');
+      border-color: rgba(map-get($theme, 'text'), 0.15);
 
       input {
-        background-color: map-get($theme, 'background');
+        background-color: rgba(map-get($theme, 'text'), 0.08);
         color: map-get($theme, 'text');
-        border-color: map-get($theme, 'border');
+        border-color: rgba(map-get($theme, 'text'), 0.15);
+
+        &:focus {
+          border-color: rgba(map-get($theme, 'text'), 0.3);
+          background-color: rgba(map-get($theme, 'text'), 0.1);
+          box-shadow: 0 0 0 4px rgba(map-get($theme, 'accent'), 0.1);
+        }
       }
     }
 
@@ -66,6 +125,19 @@
       &::selection {
         background-color: map-get($theme, 'accent');
         color: #ffffff;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.05);
+        border-left-color: rgba(map-get($theme, 'text'), 0.05);
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(map-get($theme, 'text'), 0.15);
+
+        &:hover {
+          background-color: rgba(map-get($theme, 'text'), 0.25);
+        }
       }
     }
 

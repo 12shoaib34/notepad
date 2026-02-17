@@ -26,12 +26,15 @@ const Toolbar = ({
   const themes = [
     { value: 'dark', label: 'Dark' },
     { value: 'github', label: 'GitHub Dark' },
-    { value: 'vscode', label: 'VS Code Dark' },
-    { value: 'chrome', label: 'Chrome Dark' },
-    { value: 'dracula', label: 'Dracula' },
-    { value: 'nord', label: 'Nord' },
     { value: 'monokai', label: 'Monokai' },
-    { value: 'onedark', label: 'One Dark' },
+    { value: 'catppuccin', label: 'Catppuccin Mocha' },
+    { value: 'tokyo', label: 'Tokyo Night' },
+    { value: 'solarized', label: 'Solarized Dark' },
+    { value: 'nightowl', label: 'Night Owl' },
+    { value: 'gruvbox', label: 'Gruvbox Dark' },
+    { value: 'ayu', label: 'Ayu Dark' },
+    { value: 'material', label: 'Material Ocean' },
+    { value: 'eyecomfort', label: '✨ Eye Comfort' },
   ];
 
   const fontSizes = [
