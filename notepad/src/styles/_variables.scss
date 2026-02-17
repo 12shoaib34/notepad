@@ -1,0 +1,157 @@
+// Theme Variables - ALL DARK THEMES
+// Each theme has background, text color, toolbar background, border, and accent colors
+
+$themes: (
+  dark: (
+    background: #1e1e1e,
+    text: #d4d4d4,
+    toolbar-bg: #252526,
+    border: #3e3e42,
+    accent: #0e639c,
+    accent-hover: #1177bb,
+    shadow: rgba(0, 0, 0, 0.5),
+    scrollbar-thumb: #424242,
+    scrollbar-track: #252526,
+    button-hover: #2a2d2e,
+    search-highlight: #ffd700,
+  ),
+  github: (
+    background: #0d1117,
+    text: #c9d1d9,
+    toolbar-bg: #161b22,
+    border: #30363d,
+    accent: #58a6ff,
+    accent-hover: #388bfd,
+    shadow: rgba(1, 4, 9, 0.5),
+    scrollbar-thumb: #484f58,
+    scrollbar-track: #161b22,
+    button-hover: #21262d,
+    search-highlight: #d29922,
+  ),
+  vscode: (
+    background: #1e1e1e,
+    text: #cccccc,
+    toolbar-bg: #2d2d30,
+    border: #3e3e42,
+    accent: #007acc,
+    accent-hover: #005a9e,
+    shadow: rgba(0, 0, 0, 0.6),
+    scrollbar-thumb: #424242,
+    scrollbar-track: #2d2d30,
+    button-hover: #3e3e42,
+    search-highlight: #f9e64f,
+  ),
+  chrome: (
+    background: #202124,
+    text: #e8eaed,
+    toolbar-bg: #292a2d,
+    border: #3c4043,
+    accent: #8ab4f8,
+    accent-hover: #669df6,
+    shadow: rgba(0, 0, 0, 0.5),
+    scrollbar-thumb: #5f6368,
+    scrollbar-track: #292a2d,
+    button-hover: #3c4043,
+    search-highlight: #fdd663,
+  ),
+  dracula: (
+    background: #282a36,
+    text: #f8f8f2,
+    toolbar-bg: #21222c,
+    border: #44475a,
+    accent: #bd93f9,
+    accent-hover: #9580d1,
+    shadow: rgba(0, 0, 0, 0.6),
+    scrollbar-thumb: #6272a4,
+    scrollbar-track: #21222c,
+    button-hover: #44475a,
+    search-highlight: #f1fa8c,
+  ),
+  nord: (
+    background: #2e3440,
+    text: #d8dee9,
+    toolbar-bg: #3b4252,
+    border: #4c566a,
+    accent: #88c0d0,
+    accent-hover: #5e81ac,
+    shadow: rgba(0, 0, 0, 0.5),
+    scrollbar-thumb: #4c566a,
+    scrollbar-track: #3b4252,
+    button-hover: #434c5e,
+    search-highlight: #ebcb8b,
+  ),
+  monokai: (
+    background: #272822,
+    text: #f8f8f2,
+    toolbar-bg: #1e1f1c,
+    border: #3e3d32,
+    accent: #66d9ef,
+    accent-hover: #49b8d4,
+    shadow: rgba(0, 0, 0, 0.6),
+    scrollbar-thumb: #75715e,
+    scrollbar-track: #1e1f1c,
+    button-hover: #3e3d32,
+    search-highlight: #e6db74,
+  ),
+  onedark: (
+    background: #282c34,
+    text: #abb2bf,
+    toolbar-bg: #21252b,
+    border: #3e4451,
+    accent: #61afef,
+    accent-hover: #4a9dd6,
+    shadow: rgba(0, 0, 0, 0.5),
+    scrollbar-thumb: #4e5565,
+    scrollbar-track: #21252b,
+    button-hover: #2c313c,
+    search-highlight: #e5c07b,
+  ),
+);
+
+// Font families
+$font-families: (
+  'System Default': (-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif),
+  'Monospace': ('Courier New', Courier, monospace),
+  'Georgia': (Georgia, serif),
+  'Arial': (Arial, Helvetica, sans-serif),
+  'Verdana': (Verdana, Geneva, sans-serif),
+  'Comic Sans': ('Comic Sans MS', cursive),
+  'Times New Roman': ('Times New Roman', Times, serif),
+);
+
+// Font sizes
+$font-sizes: (
+  'xs': 12px,
+  'sm': 14px,
+  'md': 16px,
+  'lg': 18px,
+  'xl': 20px,
+  'xxl': 24px,
+);
+
+// Font weights
+$font-weights: (
+  'light': 300,
+  'normal': 400,
+  'medium': 500,
+  'semibold': 600,
+  'bold': 700,
+);
+
+// Line heights
+$line-heights: (
+  'compact': 1.2,
+  'normal': 1.5,
+  'relaxed': 1.8,
+  'loose': 2.0,
+);
+
+// Transitions
+$transition-speed: 0.2s;
+$transition-easing: ease-in-out;
+
+// Toolbar height
+$toolbar-height: 40px;
+
+// Border radius
+$border-radius: 3px;

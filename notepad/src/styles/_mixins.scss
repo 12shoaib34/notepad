@@ -1,0 +1,57 @@
+@use './variables' as *;
+
+// Mixin to apply theme colors
+@mixin themed($theme-name) {
+  $theme: map-get($themes, $theme-name);
+
+  @if $theme {
+    background-color: map-get($theme, 'background');
+    color: map-get($theme, 'text');
+
+    // Toolbar styling
+    .toolbar {
+      background-color: map-get($theme, 'toolbar-bg');
+      border-bottom: 1px solid map-get($theme, 'border');
+    }
+
+    .toolbar-button {
+      color: map-get($theme, 'text');
+      border-color: map-get($theme, 'border');
+    }
+
+    .dropdown {
+      background-color: map-get($theme, 'toolbar-bg');
+      border-color: map-get($theme, 'border');
+      color: map-get($theme, 'text');
+    }
+
+    // Search modal styling
+    .search-modal {
+      background-color: map-get($theme, 'toolbar-bg');
+      border: 1px solid map-get($theme, 'border');
+
+      input {
+        background-color: map-get($theme, 'background');
+        color: map-get($theme, 'text');
+        border-color: map-get($theme, 'border');
+      }
+    }
+
+    // Notepad textarea
+    .notepad-textarea {
+      background-color: map-get($theme, 'background');
+      color: map-get($theme, 'text');
+      caret-color: map-get($theme, 'accent');
+
+      &::selection {
+        background-color: map-get($theme, 'accent');
+        color: #ffffff;
+      }
+    }
+
+    .search-highlight {
+      background-color: map-get($theme, 'search-highlight');
+      color: #000000;
+    }
+  }
+}
